@@ -1,10 +1,16 @@
-import nl.jqno.equalsverifier.EqualsVerifier;
-import org.junit.jupiter.api.Test;
+import com.google.gson.Gson;
 
-public class PersonTest {
+public class Main {
+    public static void main(String[] args) {
+        Person originalPerson = new Person("Шевченко", "Тарас", 47);
 
-    @Test
-    public void testEqualsAndHashCode() {
-        EqualsVerifier.simple().forClass(Person.class).verify();
+        Gson gson = new Gson();
+        String json = gson.toJson(originalPerson);
+        System.out.println("JSON representation: " + json);
+
+        Person restoredPerson = gson.fromJson(json, Person.class);
+
+        boolean isEqual = originalPerson.equals(restoredPerson);
+        System.out.println("Are the objects equal? " + isEqual);
     }
 }
